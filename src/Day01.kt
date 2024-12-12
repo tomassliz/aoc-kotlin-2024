@@ -1,21 +1,39 @@
+import kotlin.math.abs
+
 fun main() {
+    fun parse(input: List<String>): Pair<List<Int>, List<Int>> {
+        val ints = input.map { it -> it.split("\\s+".toRegex()).map { it.toInt() } }
+        return Pair(ints.map { it.first() }, ints.map { it.last() })
+    }
+
     fun part1(input: List<String>): Int {
-        return input.size
+        val (lefts, rights) = parse(input)
+        val sortedLefts = lefts.sorted()
+        val sortedRights = rights.sorted()
+
+        val totalDistance = sortedLefts.zip(sortedRights).fold(0) { acc, pair -> acc + abs(pair.first - pair.second) }
+
+        return totalDistance
     }
 
     fun part2(input: List<String>): Int {
-        return input.size
+        val (lefts, rights) = parse(input)
+
+        val rightCounts: Map<Int, Int> = rights.fold(mutableMapOf()) { acc, num ->
+            acc[num] = acc.getOrDefault(num, 0) + 1
+            acc
+        }
+
+        val similarityScore = lefts.fold(0) { score, num -> score + (num * rightCounts.getOrDefault(num, 0)) }
+
+        return similarityScore
     }
 
-    // Test if implementation meets criteria from the description, like:
-    check(part1(listOf("test_input")) == 1)
+    val testInput = readInput("Data/Day01_test")
+    check(part1(testInput) == 11)
+    check(part2(testInput) == 31)
 
-    // Or read a large test input from the `src/Day01_test.txt` file:
-    val testInput = readInput("Day01_test")
-    check(part1(testInput) == 1)
-
-    // Read the input from the `src/Day01.txt` file.
-    val input = readInput("Day01")
+    val input = readInput("Data/Day01")
     part1(input).println()
     part2(input).println()
 }

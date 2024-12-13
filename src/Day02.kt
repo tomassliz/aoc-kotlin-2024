@@ -45,11 +45,11 @@ fun main() {
         return parse(input).count { isReportPotentiallySafe(it) }
     }
 
-    val testInput = readInput("Data/Day02_test")
+    val testInput = readLines("Data/Day02_test")
     check(part1(testInput) == 2)
     check(part2(testInput) == 4)
 
-    val input = readInput("Data/Day02")
+    val input = readLines("Data/Day02")
     part1(input).println()
     part2(input).println()
 }

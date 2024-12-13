@@ -29,11 +29,11 @@ fun main() {
         return similarityScore
     }
 
-    val testInput = readInput("Data/Day01_test")
+    val testInput = readLines("Data/Day01_test")
     check(part1(testInput) == 11)
     check(part2(testInput) == 31)
 
-    val input = readInput("Data/Day01")
+    val input = readLines("Data/Day01")
     part1(input).println()
     part2(input).println()
 }
